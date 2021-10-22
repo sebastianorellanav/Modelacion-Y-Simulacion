@@ -26,21 +26,12 @@ fprintf("\nLos gráficos se crean automaticamente en figuras separadas\n\n")
 fprintf("\nSegunda Parte\nItem 1:  Crear una funcion que implemente el algoritmo de Newton-Raphson")
 fprintf("\n---------------------------------------------------------------------------------------")
 
-%Ingresar valores
-fprintf("\nIngrese los siguientes valores para utilizar el algoritmo de newton raphson \n\n");
-v1= 'valor inicial del algoritmo:\n';
-valorInicial=input(v1);
-v2= 'error a considerar:\n';
-errorConsiderable=input(v2);
-v3= 'polinomio(con formato de polinomio entre corchetes):\n';
-polinomio=input(v3);
-v4= 'numero maximo de iteraciones:\n';
-iteraciones=input(v4);
-[resultado,error]=newtonraphson(valorInicial,errorConsiderable,polinomio,iteraciones);
 
-fprintf("\nUna raiz del polinomio es:");
+[resultado,error]=newtonraphson();
+ 
+fprintf("\nLa raiz aproximada del polinomio es:");
 disp(resultado);
-fprintf("El error es calculado es:");
+fprintf("El error calculado es:");
 disp(error);
 
 
