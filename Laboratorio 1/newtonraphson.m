@@ -58,11 +58,10 @@ function [xn, e]= newtonraphson()
     fprintf('\nMétodo de Newton Raphson:');
     xn = x0;
     i = 1;% se define una iteracion inicial igual a 1
-    e = 10;
+    e = polyval(polinomio,xn);
     fin = 0;
     
     [xn, e] = calcularnewtonraphson(xn, e, polinomio, dfx, iteraciones, tol, fin, i);
-    
 end
 
 

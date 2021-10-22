@@ -32,7 +32,10 @@ function [xn, e] = calcularnewtonraphson(xn, e, fx, dfx, iteraciones, tol, fin, 
     else
         xi = xn;
         xn = xn - (polyval(fx,xn)/polyval(dfx,xn));  %fx(xn)/dfx(xn)
-        e = ((xn -xi)/xn);
+        if xi==xn %fx(xn)
+            fin=1;
+        end
+        e = abs(((xn -xi)/xn));
         i = i + 1;
         [xn, e] = calcularnewtonraphson(xn, e, fx, dfx, iteraciones, tol, fin, i);
     end
