@@ -15,7 +15,7 @@
 % xn - valor aproximado de la raiz del polinomio
 % e - error asociado a la raiz obtenida
 
-function [xn, e]= newtonraphson()
+function newtonraphson()
     %Ingresar valores
     fprintf("\nIngrese los siguientes valores para utilizar el algoritmo de newton raphson \n\n");
     v1= 'valor inicial del algoritmo:\n';
@@ -62,6 +62,10 @@ function [xn, e]= newtonraphson()
     fin = 0;
     
     [xn, e] = calcularnewtonraphson(xn, e, polinomio, dfx, iteraciones, tol, fin, i);
+    fprintf("\nLa raiz aproximada del polinomio es:");
+    disp(xn);
+    fprintf("El error calculado es:");
+    disp(e);
 end
 
 

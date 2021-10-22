@@ -27,13 +27,7 @@ fprintf("\nSegunda Parte\nItem 1:  Crear una funcion que implemente el algoritmo
 fprintf("\n---------------------------------------------------------------------------------------")
 
 
-[resultado,error]=newtonraphson();
- 
-fprintf("\nLa raiz aproximada del polinomio es:");
-disp(resultado);
-fprintf("El error calculado es:");
-disp(error);
-
+newtonraphson();
 
 %- Item 2
 fprintf("\nItem 2:  Crear una funcion que reciba como entrada un arreglo x y retorne la desviacion estandar")
