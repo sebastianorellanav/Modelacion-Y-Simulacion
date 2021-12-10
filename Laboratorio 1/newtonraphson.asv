@@ -15,23 +15,13 @@
 % xn - valor aproximado de la raiz del polinomio
 % e - error asociado a la raiz obtenida
 
-function newtonraphson()
-    %Ingresar valores
-    fprintf("\nIngrese los siguientes valores para utilizar el algoritmo de newton raphson \n\n");
-    v1= 'valor inicial del algoritmo:\n';
-    x0=input(v1);
-    v2= 'error a considerar:\n';
-    tol=input(v2);
-    v3= 'polinomio(con formato de polinomio entre corchetes):\n';
-    polinomio=input(v3);
-    v4= 'numero maximo de iteraciones:\n';
-    iteraciones=input(v4);
-
-
+function [xn, e]= newtonraphson(x0, tol, polinomio, iteraciones)
     %se realiza el calculo de la primera y segunda derivada del polinomio
     dfx = polyder(polinomio); %calcular derivada
     ddfx = polyder(dfx); %calcular segunda derivada
-
+    
+    dfx
+    ddfx
     
     %en caso de tener una primera derivada igual a 0, no se cumplira con la
     %condicion de unicidad de raiz de Newton Raphson y por lo tanto no es
@@ -42,10 +32,7 @@ function newtonraphson()
         e = -1;
         return;
     end
-     %en caso de tener una segunda derivada igual a 0, no se cumplira con la
-    %condicion de concavidad de la funcion en Newton Raphson y por lo tanto no es
-    %aplicable el metodo
-    if ddfx==0
+    elseif ddfx==0
         fprintf('\nEl metodo Newton Raphson no es aplicable, dado que la segunda derivada de la funcion es 0');
         xn = -1;
         e = -1;
@@ -58,14 +45,11 @@ function newtonraphson()
     fprintf('\nMétodo de Newton Raphson:');
     xn = x0;
     i = 1;% se define una iteracion inicial igual a 1
-    e = polyval(polinomio,xn);
+    e = 10;
     fin = 0;
     
     [xn, e] = calcularnewtonraphson(xn, e, polinomio, dfx, iteraciones, tol, fin, i);
-    fprintf("\nLa raiz aproximada del polinomio es:");
-    disp(xn);
-    fprintf("El error calculado es:");
-    disp(e);
+    
 end
 
 

@@ -24,6 +24,7 @@ function [xn, e] = calcularnewtonraphson(xn, e, fx, dfx, iteraciones, tol, fin, 
 %obtenido sea igual al error aceptado de calculo, o que el algoritmo no
 %pueda encontrar una solucion con un error menor al ultimo calculado
     if e < tol || fin==1 || i>=iteraciones
+        
         return;
             
     %Se define el caso general, con el que se obtendra un nuevo posible
@@ -32,10 +33,13 @@ function [xn, e] = calcularnewtonraphson(xn, e, fx, dfx, iteraciones, tol, fin, 
     else
         xi = xn;
         xn = xn - (polyval(fx,xn)/polyval(dfx,xn));  %fx(xn)/dfx(xn)
-        if xi==xn %fx(xn)
+        xn
+        if e==((xn -xi)/xn) %fx(xn)
             fin=1;
+            fin
         end
-        e = abs(((xn -xi)/xn));
+        e = ((xn -xi)/xn);
+        e
         i = i + 1;
         [xn, e] = calcularnewtonraphson(xn, e, fx, dfx, iteraciones, tol, fin, i);
     end
