@@ -31,7 +31,12 @@ H1_settling_time = stepinfo(H1);
 % lazo abierto
 figure();
 step(H1);
-%... aqui falta el titulo los ejes legenda, etc para el grafico
+set(gcf,'position',[10,10,1200,600])
+grid();
+title("Respuesta a un escalón de la Función de Transferencia 1 (Lazo abierto)")
+xlabel("Tiempo")
+ylabel("amplitud")
+legend("H1 = 8*s/(6*s + 2)");
 
 % Se muestran los resultados por consola
 display(H1)
@@ -61,7 +66,12 @@ H1_feedback_settling_time = stepinfo(H1_feedback);
 % lazo abierto
 figure();
 step(H1_feedback);
-%... aqui falta el titulo los ejes legenda, etc para el grafico
+set(gcf,'position',[10,10,1200,600])
+grid();
+title("Respuesta a un escalón de la Función de Transferencia 1 (Lazo cerrado)")
+xlabel("Tiempo")
+ylabel("amplitud")
+legend("H1'=(48s^2 + 16s)/(100s^2 + 24s + 4)");
 
 % Se muestran los resultados por consola
 display(H1_feedback);
@@ -93,7 +103,12 @@ H2_settling_time = stepinfo(H2);
 % lazo abierto
 figure();
 step(H2);
-%... aqui falta el titulo los ejes legenda, etc para el grafico
+set(gcf,'position',[10,10,1200,600])
+grid();
+title("Respuesta a un escalón de la Función de Transferencia 2 (Lazo abierto)")
+xlabel("Tiempo")
+ylabel("amplitud")
+legend("H2 = (5*s^2 + 7*s +1)/(s^2 + 6*s + 3)");
 
 % Se muestran los resultados por consola
 display(H2_zeros);
@@ -122,7 +137,12 @@ H2_feedback_settling_time = stepinfo(H2_feedback);
 % lazo abierto
 figure()
 step(H2_feedback);
-%... aqui falta el titulo los ejes legenda, etc para el grafico
+set(gcf,'position',[10,10,1200,600])
+grid();
+title("Respuesta a un escalón de la Función de Transferencia 2 (Lazo cerrado)")
+xlabel("Tiempo")
+ylabel("amplitud")
+legend("H2'=(5s^4+37s^3+58s^2+27s+3)/(26s^4+82s^3+101s^2+50s+10)");
 
 % Se muestran los resultados por consola
 display(H2_feedback);
