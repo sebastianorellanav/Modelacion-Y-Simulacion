@@ -13,7 +13,7 @@ F5 = (8*s + 8)/(s^3+2*s^2+3*s);
 
 F6 = (3*s+2)/(5*s^2+7*s+10);
 
-F3_feedback = feedback(F3,F3);
+F3_feedback = feedback(F3,1,+1);
 
 H1 = F1;
 
