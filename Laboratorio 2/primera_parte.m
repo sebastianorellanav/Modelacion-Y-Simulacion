@@ -49,7 +49,7 @@ display(H1_settling_time);
 % -------------
 % Lazo cerrado:
 % Se define la función de transferencia pero con un lazo cerrado
-H1_feedback = feedback(H1, H1);
+H1_feedback = feedback(H1, 1, -1);
 
 % Se obtienen los ceros y la ganancia de la función de transferencia 1 con
 % lazo cerrado
@@ -120,7 +120,7 @@ display(H2_settling_time);
 % -------------
 % Lazo cerrado:
 % Se define la función de transferencia 2 pero con un lazo cerrado
-H2_feedback = feedback ( H2 , H2 );
+H2_feedback = feedback ( H2 , 1, -1);
 
 % Se obtienen los ceros y la ganancia de la función de transferencia 2 con
 % lazo cerrado
