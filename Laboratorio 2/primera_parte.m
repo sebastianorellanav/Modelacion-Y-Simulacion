@@ -6,6 +6,11 @@
 %--------------------------------------------------------------------------
 %
 
+% limpiar datos y consola
+clc
+clear all
+close all
+
 % Se define el parámetro s para trabajar con funciones de transferencia
 s = tf('s');
 
@@ -16,34 +21,27 @@ s = tf('s');
 
 % Lazo Abierto:
 % Se define la función de transferencia encontrada para la ecuación 1
-H1 = 8*s/(6*s + 2);
-
-% Se obtienen los ceros y la ganancia de la función de transferencia 1
-[H1_zeros, H1_gain] = zero(H1);
-
-% Se obtienen los polos de la función de transferencia 1
-H1_poles = zero(6*s + 2);
+H1 = 8/(6*s+2);
 
 % Se obtiene el tiempo de estabilización de la función de transferencia 1
-H1_settling_time = stepinfo(H1);
+H1_numerador= [8];
+H1_denominador= [6 2];
+[H1_ceros, H1_polos, H1_ganancia] = tf2zp (H1_numerador,H1_denominador);
+H1_tiempo_estabilizacion = stepinfo(H1).SettlingTime;
+
+% Se calcula ganancia manualmente
+H1_ganancia = 4;
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
-figure();
-step(H1);
-set(gcf,'position',[10,10,1200,600])
-grid();
-title("Respuesta a un escalón de la Función de Transferencia 1 (Lazo abierto)")
-xlabel("Tiempo")
-ylabel("amplitud")
-legend("H1 = 8*s/(6*s + 2)");
+[H1_Y, H1_X] = step(H1, 25);
 
 % Se muestran los resultados por consola
 display(H1)
-display(H1_zeros);
-display(H1_gain);
-display(H1_poles);
-display(H1_settling_time);
+display(H1_ceros);
+display(H1_ganancia);
+display(H1_polos);
+display(H1_tiempo_estabilizacion);
 
 
 % -------------
@@ -51,34 +49,28 @@ display(H1_settling_time);
 % Se define la función de transferencia pero con un lazo cerrado
 H1_feedback = feedback(H1, 1, -1);
 
-% Se obtienen los ceros y la ganancia de la función de transferencia 1 con
-% lazo cerrado
-[H1_feedback_zeros, H1_feedback_gain] = zero(H1_feedback);
+% Se obtienen ceros, polos, ganancia y tiempo de estabilización para la
+% función H1 de lazo cerrado
+H1_f_numerador= [8];
+H1_f_denominador= [6 2];
+[H1_feedback_ceros, H1_feedback_polos, H1_feedback_ganancia] = tf2zp (H1_f_numerador,H1_f_denominador);
+H1_feedback_tiempo_estabilizacion = stepinfo(H1_feedback).SettlingTime;
 
-% Se obtienen los polos de la función de transferencia 1 con lazo cerrado
-H1_feedback_poles = zero(48*s^2 + 16*s);
-
-% Se obtiene el tiempo de estabilización de la función de transferencia 1
-% con lazo cerrado
-H1_feedback_settling_time = stepinfo(H1_feedback);
+% Se calcula ganancia manualmente
+H1_feedback_ganancia = 0.8;
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
-figure();
-step(H1_feedback);
-set(gcf,'position',[10,10,1200,600])
-grid();
-title("Respuesta a un escalón de la Función de Transferencia 1 (Lazo cerrado)")
-xlabel("Tiempo")
-ylabel("amplitud")
-legend("H1'=(48s^2 + 16s)/(100s^2 + 24s + 4)");
+[H1_feedback_Y, H1_feedback_X] = step(H1_feedback, 25);
 
 % Se muestran los resultados por consola
 display(H1_feedback);
-display(H1_feedback_zeros);
-display(H1_feedback_gain);
-display(H1_feedback_poles);
-display(H1_feedback_settling_time);
+display(H1_feedback_ceros);
+display(H1_feedback_ganancia);
+display(H1_feedback_polos);
+display(H1_feedback_tiempo_estabilizacion);
+
+graficarParte1(H1_X, H1_Y, H1_feedback_X, H1_feedback_Y, 'Respuesta ante un escalón ecuación 1')
 
 %--------------------------------------------------------------------------
 % Ecuación 2
@@ -90,63 +82,45 @@ display(H1_feedback_settling_time);
 % Se define la función de transferencia encontrada para la ecuación 2
 H2 = (5*s^2 + 7*s +1)/(s^2 + 6*s + 3);
 
-% Se obtienen los ceros y la ganancia de la función de transferencia 2
-[H2_zeros, H2_gain] = zero(H2);
-
-% Se obtienen los polos para la función de transferencia 2
-H2_poles = zero(s^2 + 6*s + 3);
-
-% Se obtiene el tiempo de estabilización para la función de transferencia 2
-H2_settling_time = stepinfo(H2);
+% Se obtiene el tiempo de estabilización de la función de transferencia 1
+H2_numerador= [5 7 1];
+H2_denominador= [1 6 3];
+[H2_ceros, H2_polos, H2_ganancia] = tf2zp (H2_numerador,H2_denominador);
+H2_tiempo_estabilizacion = stepinfo(H2).SettlingTime;
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
-figure();
-step(H2);
-set(gcf,'position',[10,10,1200,600])
-grid();
-title("Respuesta a un escalón de la Función de Transferencia 2 (Lazo abierto)")
-xlabel("Tiempo")
-ylabel("amplitud")
-legend("H2 = (5*s^2 + 7*s +1)/(s^2 + 6*s + 3)");
+[H2_Y, H2_X] = step(H2, 25);
 
 % Se muestran los resultados por consola
-display(H2_zeros);
-display(H2_gain);
-display(H2_poles);
-display(H2_settling_time);
+display(H2)
+display(H2_ceros);
+display(H2_ganancia);
+display(H2_polos);
+display(H2_tiempo_estabilizacion);
 
 
 % -------------
 % Lazo cerrado:
-% Se define la función de transferencia 2 pero con un lazo cerrado
-H2_feedback = feedback ( H2 , 1, -1);
+% Se define la función de transferencia pero con un lazo cerrado
+H2_feedback = feedback(H2, 1, -1);
 
-% Se obtienen los ceros y la ganancia de la función de transferencia 2 con
-% lazo cerrado
-[H2_feedback_zeros, H2_feedback_gain] = zero(H2_feedback);
-
-% Se obtienen los polos para la función de transferencia 2 con lazo cerrado
-H2_feedback_poles = zero(8*s^3 + 48*s^2 + 24*s);
-
-% Se obtiene el tiempo de estabilización para la función de transferencia 2
-% con lazo cerrado
-H2_feedback_settling_time = stepinfo(H2_feedback);
+% Se obtienen ceros, polos, ganancia y tiempo de estabilización para la
+% función H2 de lazo cerrado
+H2_f_numerador= [5 7 1];
+H2_f_denominador= [1 13 4];
+[H2_feedback_ceros, H2_feedback_polos, H2_feedback_ganancia] = tf2zp (H2_f_numerador,H2_f_denominador);
+H2_feedback_tiempo_estabilizacion = stepinfo(H2_feedback).SettlingTime;
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
-figure()
-step(H2_feedback);
-set(gcf,'position',[10,10,1200,600])
-grid();
-title("Respuesta a un escalón de la Función de Transferencia 2 (Lazo cerrado)")
-xlabel("Tiempo")
-ylabel("amplitud")
-legend("H2'=(5s^4+37s^3+58s^2+27s+3)/(26s^4+82s^3+101s^2+50s+10)");
+[H2_feedback_Y, H2_feedback_X] = step(H2_feedback, 25);
 
 % Se muestran los resultados por consola
 display(H2_feedback);
-display(H2_feedback_zeros);
-display(H2_feedback_gain);
-display(H2_feedback_poles);
-display(H2_feedback_settling_time);
+display(H2_feedback_ceros);
+display(H2_feedback_ganancia);
+display(H2_feedback_polos);
+display(H2_feedback_tiempo_estabilizacion);
+
+graficarParte1(H2_X, H2_Y, H2_feedback_X, H2_feedback_Y, 'Respuesta ante un escalón ecuación 2')
