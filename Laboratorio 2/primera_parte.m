@@ -21,10 +21,10 @@ s = tf('s');
 
 % Lazo Abierto:
 % Se define la función de transferencia encontrada para la ecuación 1
-H1 = 8/(6*s+2);
+H1 = 8*s/(6*s+2);
 
 % Se obtiene el tiempo de estabilización de la función de transferencia 1
-H1_numerador= [8];
+H1_numerador= [8 0];
 H1_denominador= [6 2];
 [H1_ceros, H1_polos, H1_ganancia] = tf2zp (H1_numerador,H1_denominador);
 H1_tiempo_estabilizacion = stepinfo(H1).SettlingTime;
@@ -34,7 +34,7 @@ H1_ganancia = 4;
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
-[H1_Y, H1_X] = step(H1, 25);
+[H1_Y, H1_X] = step(H1, 30);
 
 % Se muestran los resultados por consola
 display(H1)
@@ -61,7 +61,7 @@ H1_feedback_ganancia = 0.8;
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
-[H1_feedback_Y, H1_feedback_X] = step(H1_feedback, 25);
+[H1_feedback_Y, H1_feedback_X] = step(H1_feedback, 30);
 
 % Se muestran los resultados por consola
 display(H1_feedback);
