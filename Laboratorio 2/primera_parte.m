@@ -26,11 +26,11 @@ H1 = 8*s/(6*s+2);
 % Se obtiene el tiempo de estabilización de la función de transferencia 1
 H1_numerador= [8 0];
 H1_denominador= [6 2];
-[H1_ceros, H1_polos, H1_ganancia] = tf2zp (H1_numerador,H1_denominador);
+[H1_ceros, H1_polos, H1_ganancia_max] = tf2zp (H1_numerador,H1_denominador);
 H1_tiempo_estabilizacion = stepinfo(H1).SettlingTime;
 
 % Se calcula ganancia manualmente
-H1_ganancia = 4;
+H1_ganancia = dcgain(H1);
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
@@ -51,13 +51,13 @@ H1_feedback = feedback(H1, 1, -1);
 
 % Se obtienen ceros, polos, ganancia y tiempo de estabilización para la
 % función H1 de lazo cerrado
-H1_f_numerador= [8];
-H1_f_denominador= [6 2];
-[H1_feedback_ceros, H1_feedback_polos, H1_feedback_ganancia] = tf2zp (H1_f_numerador,H1_f_denominador);
+H1_f_numerador= [8 0];
+H1_f_denominador= [14 2];
+[H1_feedback_ceros, H1_feedback_polos, H1_feedback_ganancia_max] = tf2zp (H1_f_numerador,H1_f_denominador);
 H1_feedback_tiempo_estabilizacion = stepinfo(H1_feedback).SettlingTime;
 
 % Se calcula ganancia manualmente
-H1_feedback_ganancia = 0.8;
+H1_feedback_ganancia = dcgain(H1_feedback);
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
@@ -85,8 +85,11 @@ H2 = (5*s^2 + 7*s +1)/(s^2 + 6*s + 3);
 % Se obtiene el tiempo de estabilización de la función de transferencia 1
 H2_numerador= [5 7 1];
 H2_denominador= [1 6 3];
-[H2_ceros, H2_polos, H2_ganancia] = tf2zp (H2_numerador,H2_denominador);
+[H2_ceros, H2_polos, H2_ganancia_max] = tf2zp (H2_numerador,H2_denominador);
 H2_tiempo_estabilizacion = stepinfo(H2).SettlingTime;
+
+%Se calcula manualmente la ganancia
+H2_ganancia = dcgain(H2);
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
@@ -108,9 +111,12 @@ H2_feedback = feedback(H2, 1, -1);
 % Se obtienen ceros, polos, ganancia y tiempo de estabilización para la
 % función H2 de lazo cerrado
 H2_f_numerador= [5 7 1];
-H2_f_denominador= [1 13 4];
-[H2_feedback_ceros, H2_feedback_polos, H2_feedback_ganancia] = tf2zp (H2_f_numerador,H2_f_denominador);
+H2_f_denominador= [6 13 4];
+[H2_feedback_ceros, H2_feedback_polos, H2_feedback_ganancia_max] = tf2zp (H2_f_numerador,H2_f_denominador);
 H2_feedback_tiempo_estabilizacion = stepinfo(H2_feedback).SettlingTime;
+
+%Se calcula manualmente la ganancia 
+H2_feedback_ganancia = dcgain(H2_feedback);
 
 % Se grafica la respuesta a un escalon de la función de transferencia con
 % lazo abierto
