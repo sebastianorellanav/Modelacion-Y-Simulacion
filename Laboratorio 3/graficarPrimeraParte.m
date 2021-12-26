@@ -1,4 +1,11 @@
-function [outputArg1,outputArg2] = graficarPrimeraParte(X1, Y1, X2, Y2)
+%--------------------------------------------------------------------------
+%----------   Laboratorio 3: Función graficarPrimeraParte     -------------
+%--------------------------------------------------------------------------
+%------------------    Autor: Sebastian Orellana    -----------------------
+%--------------------------------------------------------------------------
+%
+
+function graficarPrimeraParte(X1, Y1, X2, Y2)
 
 % Create figure
 figure1 = figure();
